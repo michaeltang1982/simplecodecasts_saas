@@ -16,13 +16,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <%= link_to root_path, class: 'nav-brand' do %> 
+        <%= link_to root_path, class: 'nav-brand' do %> <!-- the link_to tirns Ruby to html -->
           <i class="fa fa-users"></i>
           Dev Match
         <% end %>
       </div>
       
       <div class="collapse navbar-collapse" id="main-nav-collapse">
+        <div class="nav navbar-nav navbar-right">
+          <% if current_user %> <!-- Tets to see if the user is logged in -->
+            <%= button_to "Sign Out", destroy_user_sesion_path, method: :delete, class: 'btn btn-primary navbar-btn' %>
+          <% else %> <!-- without the equals it will not show on the html --> 
+            <%= link_to "Log In", new_user_session_path, class: 'btn btn-primary navbar-btn', method: :get %>
+            <!-- the paths come from bundle exec rake routes the prefix -->
+            <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-success navbar-btn', method: :get %>
+          <% end %>
+        </div>
         <ul class="nav navbar-nav navbar-right">
           <li><%= link_to "About", about_path %></li>
           <li><%= link_to "Contact Us", new_contact_path %></li>
